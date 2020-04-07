@@ -17,5 +17,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    void load_dictionary();
 };
 #endif // MAINWINDOW_H
