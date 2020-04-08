@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     load_dictionary();
+    ui->translationArea->addItems(words);
 }
 
 MainWindow::~MainWindow()
@@ -31,12 +32,29 @@ void MainWindow::load_dictionary()
     in.setCodec("UTF-8");
 
     QString line;
+    QString word;
+    QString translation;
+
 
     while (!in.atEnd()) {
         line = in.readLine();
-        qDebug() << line;
+
+        if (!line.isEmpty() && !line[0].isSpace()) {
+            if (!word.isEmpty()) {
+                //qDebug() << word << translation;
+                words.append(word);
+            }
+            word = line.simplified();
+            translation = word;
+        } else {
+            translation = translation + QString("\n") + line;
+        }
     }
-    qDebug("yeet");
+
+    if (!word.isEmpty()) {
+       // qDebug() << word << translation;
+        words.append(word);
+    }
 
     inFile.close();
 }
