@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <iostream>
 #include <QDebug>
 #include <QTextStream>
 #include <QTextCodec>
@@ -12,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     load_dictionary();
-    ui->translationArea->addItems(words);
+    ui->wordList->addItems(words);
 }
 
 MainWindow::~MainWindow()
@@ -41,8 +40,8 @@ void MainWindow::load_dictionary()
 
         if (!line.isEmpty() && !line[0].isSpace()) {
             if (!word.isEmpty()) {
-                //qDebug() << word << translation;
                 words.append(word);
+                translations.insert(word, translation);
             }
             word = line.simplified();
             translation = word;
@@ -52,9 +51,21 @@ void MainWindow::load_dictionary()
     }
 
     if (!word.isEmpty()) {
-       // qDebug() << word << translation;
         words.append(word);
+        translations.insert(word, translation);
     }
 
     inFile.close();
+}
+
+void MainWindow::on_wordList_currentTextChanged(const QString &currentText)
+{
+    ui->translationArea->setPlainText(translations[currentText]);
+}
+
+void MainWindow::on_searchLine_textChanged(const QString &arg1)
+{
+    QRegExp rx(arg1);
+    ui->wordList->clear();
+    ui->wordList->addItems(words.filter(rx));
 }

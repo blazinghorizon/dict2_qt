@@ -15,8 +15,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_wordList_currentTextChanged(const QString &currentText);
+
+    void on_searchLine_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     void load_dictionary();
+    QStringList words;
+    QHash<QString, QString> translations;
 };
 #endif // MAINWINDOW_H

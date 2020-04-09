@@ -34,10 +34,10 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QListWidget" name="translationArea"/>
+       <widget class="QListWidget" name="wordList"/>
       </item>
       <item>
-       <widget class="QPlainTextEdit" name="wordList"/>
+       <widget class="QPlainTextEdit" name="translationArea"/>
       </item>
      </layout>
     </item>
@@ -49,7 +49,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">

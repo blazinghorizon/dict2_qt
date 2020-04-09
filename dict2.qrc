@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>mueller.dict</file>
+        <file>dict2_qt_ru_RU.qm</file>
     </qresource>
 </RCC>
