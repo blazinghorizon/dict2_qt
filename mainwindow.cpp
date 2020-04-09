@@ -4,13 +4,15 @@
 #include <QDebug>
 #include <QTextStream>
 #include <QTextCodec>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    load_dictionary();
+    load_dictionary(":/mueller.dict");
+    statusBar("Standart dictionary");
     ui->wordList->addItems(words);
 }
 
@@ -19,9 +21,18 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::load_dictionary()
+void MainWindow::statusBar(QString message)
 {
-    QFile inFile(":/mueller.dict");
+    QString a = QCoreApplication::applicationDirPath();
+    a.append("/mueller.dict");
+    if ((message == ":/mueller.dict") || (message == a))
+        message = tr("Standart dictionary");
+    ui->statusbar->showMessage(message);
+}
+
+void MainWindow::load_dictionary(QString fileName)
+{
+    QFile inFile(fileName);
 
     if (!inFile.open(QIODevice::ReadOnly)) {
         return;
@@ -68,4 +79,15 @@ void MainWindow::on_searchLine_textChanged(const QString &arg1)
     QRegExp rx(arg1);
     ui->wordList->clear();
     ui->wordList->addItems(words.filter(rx));
+}
+
+void MainWindow::slotFileDialog()
+{
+    words.clear();
+    translations.clear();
+    QString fileName = QFileDialog::getOpenFileName(
+                this, tr("Open File"),"",tr("Text (*.dict)"));
+    statusBar(fileName);
+    load_dictionary(fileName);
+
 }

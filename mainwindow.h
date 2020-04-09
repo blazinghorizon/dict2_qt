@@ -16,13 +16,18 @@ public:
     ~MainWindow();
 
 private slots:
+
+    void statusBar(QString message);
+
+    void slotFileDialog();
+
     void on_wordList_currentTextChanged(const QString &currentText);
 
     void on_searchLine_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
-    void load_dictionary();
+    void load_dictionary(QString fileName);
     QStringList words;
     QHash<QString, QString> translations;
 };

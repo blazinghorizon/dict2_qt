@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QTranslator t;
-    t.load(":/dict2_ru_RU.qm");
+    t.load(":/dict2_qt_ru_RU.qm");
     a.installTranslator(&t);
 
     MainWindow w;
